@@ -1,3 +1,4 @@
+import 'package:admin_model_home/constant/app_color.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/product_model.dart';
@@ -48,7 +49,7 @@ class ProductRow extends StatelessWidget {
                 ElevatedButton.icon(
                   onPressed: onDelete,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    backgroundColor: AppColor.Confirm,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                   ),
                   icon: const Icon(Icons.delete, size: 16, color: Colors.white),

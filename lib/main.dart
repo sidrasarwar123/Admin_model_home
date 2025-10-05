@@ -98,7 +98,7 @@ class _myhomeState extends State<myhome> {
                        Text(
                       "Email",
                       style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: AppColor.textDark),
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: AppColor.gray),
                     ),
                     const SizedBox(height: 10),
 
@@ -108,7 +108,7 @@ class _myhomeState extends State<myhome> {
                         Text(
                       "Password",
                       style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: AppColor.textDark),
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: AppColor.gray),
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(

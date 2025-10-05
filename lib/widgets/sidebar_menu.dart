@@ -1,21 +1,14 @@
 import 'package:admin_model_home/constant/app_color.dart';
 import 'package:admin_model_home/view/screens/category_screen.dart';
 import 'package:admin_model_home/view/screens/dashbord_screen.dart';
+import 'package:admin_model_home/view/screens/deliver_screen.dart';
+import 'package:admin_model_home/view/screens/pending_order_screen.dart.dart';
 import 'package:admin_model_home/view/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 
 
 
-class OrdersScreen extends StatelessWidget {
-  const OrdersScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Order Management Screen", style: TextStyle(fontSize: 24)),
-    );
-  }
-}
 
 
 class SidebarMenu extends StatefulWidget {
@@ -41,13 +34,16 @@ class _SidebarMenuState extends State<SidebarMenu> {
     {"icon": Icons.group_outlined, "text": "Show All Categories"},
     {"icon": Icons.shopping_bag, "text": "Show All Product"},
     {"icon": Icons.list_alt, "text": "Order Management"},
+    {"icon":Icons.list_alt,"text": "Deliver Order"},
+
   ];
 
   final List<Widget> screens = const [
    DashboardScreen(),
    CategoryScreen(),
    ProductScreen(),
-    OrdersScreen(),
+   PendingOrdersScreen(),
+  DeliverOrderScreen(),
   ];
 
   @override
