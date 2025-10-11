@@ -1,13 +1,21 @@
 import 'package:admin_model_home/constant/app_color.dart';
 import 'package:admin_model_home/constant/app_image.dart';
+import 'package:admin_model_home/firebase_options.dart';
 import 'package:admin_model_home/routes/app_routes.dart';
 import 'package:admin_model_home/widgets/custom_button.dart';
 import 'package:admin_model_home/widgets/custom_textfeild.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+     await GetStorage.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const MyApp());
 }
 
@@ -53,6 +61,7 @@ class myhome extends StatefulWidget {
 }
 
 class _myhomeState extends State<myhome> {
+  final _formKey = GlobalKey<FormState>();
      final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   @override
@@ -85,48 +94,67 @@ class _myhomeState extends State<myhome> {
 
               Expanded(
                 flex: 2,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Login",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 20),
-                       Text(
-                      "Email",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: AppColor.gray),
-                    ),
-                    const SizedBox(height: 10),
-
-                    CustomTextField(
-                       hintText: "Email", controller:emailController ),
-                    const SizedBox(height: 16),
-                        Text(
-                      "Password",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: AppColor.gray),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextField(
-                        hintText: "Password",
-                        controller: passwordController,
-                       isPassword: true,
-                       
-                        ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 50,top: 40),
-                      child: CustomButton(
-                        text: "Login",
-                        onPressed: () {
-                  Get.toNamed('/sidebar', );
-                        },
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Login",
+                        style:
+                            TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 20),
+                         Text(
+                        "Email",
+                        style:
+                            TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: AppColor.gray),
+                      ),
+                      const SizedBox(height: 10),
+                  
+                      CustomTextField(
+                         hintText: "Email", controller:emailController,
+                           validate: (value) {
+                              if (value == '' || value == null) {
+                                return 'Please enter your email';
+                              }
+                              return null;
+                            }
+                          ),
+                      const SizedBox(height: 16),
+                          Text(
+                        "Password",
+                        style:
+                            TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: AppColor.gray),
+                      ),
+                      const SizedBox(height: 10),
+                      CustomTextField(
+                          hintText: "Password",
+                          controller: passwordController,
+                         isPassword: true,
+                          validate: (value) {
+                            if (value == '' || value == null) {
+                              return 'Please enter your password';
+                            } else if (value.length < 6) {
+                              return 'Password must be at least 6 characters long';
+                            }
+                            return null;
+                          },),
+                
+                         
+                        
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50,top: 40),
+                        child: CustomButton(
+                          text: "Login",
+                          onPressed: () {
+                    Get.toNamed('/sidebar', );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

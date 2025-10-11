@@ -5,9 +5,11 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
   final IconData? prefixIcon;
   final TextEditingController controller;
+  final String? Function(String?)? validate;
 
   const CustomTextField({
     super.key,
+    this.validate,
     required this.hintText,
     required this.controller,
     this.isPassword = false,
@@ -23,13 +25,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: widget.controller,
       obscureText: widget.isPassword ? _obscureText : false,
+      validator: widget.validate, // ✅ validator added here
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: TextStyle(
-          color: Colors.grey.shade500, 
+          color: Colors.grey.shade500,
           fontSize: 14,
         ),
         prefixIcon: widget.prefixIcon != null
