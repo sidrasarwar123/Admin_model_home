@@ -1,12 +1,15 @@
 import 'package:admin_model_home/constant/app_color.dart';
+import 'package:admin_model_home/utils/loading_utils.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+final VoidCallback? onPressed;
+    final bool? isloading;
 
   const CustomButton({
     super.key,
+      this.isloading=false,
     required this.text,
     required this.onPressed,
   });
@@ -24,7 +27,10 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(text,
+
+           child:isloading==true?
+        LoadingUtil.buttonLoading():
+        Text(text,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white)),
       ),
     );

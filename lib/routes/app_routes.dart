@@ -8,7 +8,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 
 class AppRoutes {
    static final routes=[
-      GetPage(name: '/myhome', page: ()=>myhome()),
+      GetPage(name: '/myhome', page: ()=>MyHome()),
       GetPage(name: '/dashbord', page: ()=>DashboardScreen()), 
       GetPage(name: '/sidebar', page: ()=>SidebarMenu()),
     GetPage(name: '/categoryscreen', page: ()=>CategoryScreen()),

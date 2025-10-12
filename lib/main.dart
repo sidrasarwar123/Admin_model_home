@@ -1,5 +1,6 @@
 import 'package:admin_model_home/constant/app_color.dart';
 import 'package:admin_model_home/constant/app_image.dart';
+
 import 'package:admin_model_home/firebase_options.dart';
 import 'package:admin_model_home/routes/app_routes.dart';
 import 'package:admin_model_home/widgets/custom_button.dart';
@@ -11,11 +12,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 void main() async {
-   WidgetsFlutterBinding.ensureInitialized();
-     await GetStorage.init();
+  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
+  );
   runApp(const MyApp());
 }
 
@@ -27,23 +28,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
-   return ScreenUtilInit(
+    return ScreenUtilInit(
       designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
       builder: (_, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-
-        
-          initialRoute: '/myhome',  
-
-        
+          initialRoute: '/myhome',
           getPages: AppRoutes.routes,
-
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
@@ -53,20 +46,55 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-class myhome extends StatefulWidget {
-  const myhome({super.key});
+
+class MyHome extends StatefulWidget {
+  const MyHome({super.key});
 
   @override
-  State<myhome> createState() => _myhomeState();
+  State<MyHome> createState() => _MyHomeState();
 }
 
-class _myhomeState extends State<myhome> {
+class _MyHomeState extends State<MyHome> {
   final _formKey = GlobalKey<FormState>();
-     final TextEditingController emailController = TextEditingController();
+  bool isLoading = false;
+
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+ 
+
+  void login() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() {
+      isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    if (email == "admin@gmail.com" && password == "admin123") {
+      setState(() {
+        isLoading = false;
+      });
+      Get.offAllNamed('/sidebar');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Welcome Admin!")),
+      );
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Invalid email or password")),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-     final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Center(
@@ -77,21 +105,18 @@ class _myhomeState extends State<myhome> {
           decoration: BoxDecoration(
             color: AppColor.textcolor,
             borderRadius: BorderRadius.circular(12),
-         
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(AppImage.login, height: 200),
-                    const SizedBox(height: 12),
-                  ],
-                ),
-            
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(AppImage.login, height: 200),
+                  const SizedBox(height: 12),
+                ],
+              ),
               const SizedBox(width: 30),
-
               Expanded(
                 flex: 2,
                 child: Form(
@@ -106,51 +131,52 @@ class _myhomeState extends State<myhome> {
                             TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 20),
-                         Text(
+                      Text(
                         "Email",
-                        style:
-                            TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: AppColor.gray),
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: AppColor.gray),
                       ),
                       const SizedBox(height: 10),
-                  
                       CustomTextField(
-                         hintText: "Email", controller:emailController,
-                           validate: (value) {
-                              if (value == '' || value == null) {
-                                return 'Please enter your email';
-                              }
-                              return null;
-                            }
-                          ),
+                        hintText: "Email",
+                        controller: emailController,
+                        validate: (value) {
+                          if (value == '' || value == null) {
+                            return 'Please enter your email';
+                          }
+                          return null;
+                        },
+                      ),
                       const SizedBox(height: 16),
-                          Text(
+                      Text(
                         "Password",
-                        style:
-                            TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: AppColor.gray),
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: AppColor.gray),
                       ),
                       const SizedBox(height: 10),
                       CustomTextField(
-                          hintText: "Password",
-                          controller: passwordController,
-                         isPassword: true,
-                          validate: (value) {
-                            if (value == '' || value == null) {
-                              return 'Please enter your password';
-                            } else if (value.length < 6) {
-                              return 'Password must be at least 6 characters long';
-                            }
-                            return null;
-                          },),
-                
-                         
-                        
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50,top: 40),
+                        hintText: "Password",
+                        controller: passwordController,
+                        isPassword: true,
+                        validate: (value) {
+                          if (value == '' || value == null) {
+                            return 'Please enter your password';
+                          } else if (value.length < 6) {
+                            return 'Password must be at least 6 characters long';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 40),
+                      Center(
                         child: CustomButton(
-                          text: "Login",
-                          onPressed: () {
-                    Get.toNamed('/sidebar', );
-                          },
+                          text: isLoading ? "Loading..." : "Login",
+                          isloading: isLoading,
+                          onPressed: isLoading?null:login,
                         ),
                       ),
                     ],
@@ -160,8 +186,7 @@ class _myhomeState extends State<myhome> {
             ],
           ),
         ),
-      )
+      ),
     );
   }
 }
-

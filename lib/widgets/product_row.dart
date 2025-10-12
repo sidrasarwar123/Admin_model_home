@@ -24,14 +24,32 @@ class ProductRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SizedBox(
-            width: 90,
-            child: Image.asset(product.imageUrl, height: 40, fit: BoxFit.cover),
-          ),SizedBox(width: 30,),
-          Expanded(child: Text(product.name)),
+         SizedBox(
+  width: 100,
+  height: 60,
+  child: product.image.isNotEmpty
+      ? Image.network(
+          product.image,
+          height: 40,
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) {
+            return const Icon(Icons.broken_image, size: 40, color: Colors.grey);
+          },
+        )
+      : const Icon(Icons.category, size: 40),
+),
+           SizedBox(width: 60,),
+        Expanded(
+  child: Text(
+    product.title ?? "No Name",
+    style: const TextStyle(fontSize: 16),
+  ),
+        ),
       
-          Expanded(child: Text(product.experience)),
-          Expanded(child: Text(product.description)),
+          Expanded(child: Text(   product.price.toStringAsFixed(2),),),
+          Expanded(child: Text(product.description, overflow: TextOverflow.ellipsis,
+  maxLines: 1, 
+          )),
           SizedBox(
             width: 250,
             child: Row(

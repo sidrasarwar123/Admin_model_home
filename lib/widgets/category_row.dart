@@ -25,17 +25,27 @@ class CategoryRow extends StatelessWidget {
       child: Row(
         children: [
         
-          SizedBox(
-            width: 100,
-            child: Image.asset(category.imageUrl, height: 40, fit: BoxFit.cover),
-          ),
+ SizedBox(
+  width: 100,
+  height: 60,
+  child: category.image.isNotEmpty
+      ? Image.network(
+          category.image,
+          height: 40,
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) {
+            return const Icon(Icons.broken_image, size: 40, color: Colors.grey);
+          },
+        )
+      : const Icon(Icons.category, size: 40),
+),
           SizedBox(width: 60,),
-          Expanded(
-            child: Text(
-              category.name,
-              style: const TextStyle(fontSize: 16),
-            ),
-          ),
+        Expanded(
+  child: Text(
+    category.title ?? "No Name",
+    style: const TextStyle(fontSize: 16),
+  ),
+        ),
 
   
           SizedBox(
