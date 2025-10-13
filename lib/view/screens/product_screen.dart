@@ -67,11 +67,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     color: AppColor.buttoncolor,
                   ),
                 ),
-                // ElevatedButton(
-                //   onPressed: _showAddProduct,
-                //   style: ElevatedButton.styleFrom(backgroundColor: AppColor.buttoncolor),
-                //   child: const Text("Add Product"),
-                // )
+               
               ],
             ),
             const SizedBox(height: 20),
@@ -184,21 +180,26 @@ class _ProductScreenState extends State<ProductScreen> {
                               return;
                             }
 
-                            if (editingProduct == null) {
-                           
-                              final newProduct = ProductModel(
-                                id: '',
-                                title: productNameController.text,
-                                category: "General",
-                                price: double.tryParse(priceController.text) ?? 0,
-                                description: descriptionController.text,
-                                colors: [],
-                                image: AppImage.image,
-                              );
-                              await productController.addProduct(newProduct);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Product Added Successfully!")),
-                              );
+                          if (editingProduct == null) {
+  // Default color options (you can change these)
+  final defaultColors = ["Red", "Blue", "Brown"];
+
+  final newProduct = ProductModel(
+    id: '',
+    title: productNameController.text,
+    category: "General",
+    price: double.tryParse(priceController.text) ?? 0,
+    description: descriptionController.text,
+    colors: defaultColors, // 👈 automatic colors saved here
+    image: AppImage.image,
+  );
+
+  await productController.addProduct(newProduct);
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(content: Text("Product Added Successfully!")),
+  );
+
                             } else {
                             
                               final updatedProduct = ProductModel(

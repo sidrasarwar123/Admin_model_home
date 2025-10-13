@@ -101,7 +101,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 switch (name.toLowerCase()) {
                                   case 'chair':
                                     imageUrl =
-                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBmbkPAo6z8clkkU9zmGtqaqyOutsn0D7GlQ&s';
+                                        'https://i.pinimg.com/736x/7b/7a/e6/7b7ae6371c1adcee2ff88de3d51e09b6.jpg';
                                     break;
                                   case 'sofa':
                                     imageUrl =
