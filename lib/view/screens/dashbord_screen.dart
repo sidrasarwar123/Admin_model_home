@@ -30,8 +30,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final TextEditingController priceController = TextEditingController();
   final TextEditingController colorController = TextEditingController();
 
-  final AdminDashboardController dashboardController =
-      Get.put(AdminDashboardController());
+ late final AdminDashboardController dashboardController;
+
+@override
+void initState() {
+  super.initState();
+  dashboardController = Get.put(AdminDashboardController(), permanent: true);
+}
 
   @override
   void dispose() {
@@ -386,11 +391,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   defaultProducts.length);
                                         }
 
-                                        categoryController.clear();
-                                        if (!mounted) return;
-                                        setState(() {
-                                          showAddCategory = false;
-                                        });
+                                       if (!mounted) return;
+categoryController.clear();
+setState(() {
+  showAddCategory = false;
+});
+
                                       },
                                     )),
                             ],

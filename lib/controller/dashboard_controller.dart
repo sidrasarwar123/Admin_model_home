@@ -80,6 +80,7 @@ class AdminDashboardController extends GetxController {
   /// Fetch all categories
   Future<void> fetchCategories() async {
     try {
+        print("Fetching categories from Firestore...");
       final snapshot = await _firestore.collection('categories').get();
       print("Fetched ${snapshot.docs.length} categories from Firestore");
       categories.value =

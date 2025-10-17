@@ -1,14 +1,24 @@
 import 'package:admin_model_home/constant/app_color.dart';
+import 'package:admin_model_home/controller/order_controller.dart';
 import 'package:admin_model_home/widgets/order_table.dart';
+
 import 'package:admin_model_home/widgets/top_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
-class PendingOrdersScreen extends StatelessWidget {
+class PendingOrdersScreen extends StatefulWidget {
   const PendingOrdersScreen({super.key});
 
   @override
+  State<PendingOrdersScreen> createState() => _PendingOrdersScreenState();
+}
+
+class _PendingOrdersScreenState extends State<PendingOrdersScreen> {
+final OrderController orderController = Get.find<OrderController>();
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 20),
@@ -30,7 +40,7 @@ class PendingOrdersScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     Expanded(
                       child: SingleChildScrollView(
-                        child: OrderTable(),
+                              child: OrderTable(),
                       ),
                     ),
                   ],

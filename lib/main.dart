@@ -1,5 +1,6 @@
 import 'package:admin_model_home/constant/app_color.dart';
 import 'package:admin_model_home/constant/app_image.dart';
+import 'package:admin_model_home/controller/order_controller.dart';
 
 import 'package:admin_model_home/firebase_options.dart';
 import 'package:admin_model_home/routes/app_routes.dart';
@@ -17,7 +18,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+    Get.put(OrderController(), permanent: true); 
+    runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -174,9 +176,9 @@ class _MyHomeState extends State<MyHome> {
                       const SizedBox(height: 40),
                       Center(
                         child: CustomButton(
-                          text: isLoading ? "Loading..." : "Login",
+                          text:  "Login",
                           isloading: isLoading,
-                          onPressed: isLoading?null:login,
+                          onPressed: login,
                         ),
                       ),
                     ],

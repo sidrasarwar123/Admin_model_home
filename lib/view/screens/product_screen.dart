@@ -190,7 +190,7 @@ class _ProductScreenState extends State<ProductScreen> {
     category: "General",
     price: double.tryParse(priceController.text) ?? 0,
     description: descriptionController.text,
-    colors: defaultColors, // 👈 automatic colors saved here
+    colors: defaultColors, 
     image: AppImage.image,
   );
 

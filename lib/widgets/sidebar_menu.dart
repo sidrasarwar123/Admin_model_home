@@ -4,12 +4,8 @@ import 'package:admin_model_home/view/screens/dashbord_screen.dart';
 import 'package:admin_model_home/view/screens/deliver_screen.dart';
 import 'package:admin_model_home/view/screens/pending_order_screen.dart.dart';
 import 'package:admin_model_home/view/screens/product_screen.dart';
+
 import 'package:flutter/material.dart';
-
-
-
-
-
 
 class SidebarMenu extends StatefulWidget {
   final int initialIndex; 
@@ -38,12 +34,12 @@ class _SidebarMenuState extends State<SidebarMenu> {
 
   ];
 
-  final List<Widget> screens = const [
-   DashboardScreen(),
-   CategoryScreen(),
-   ProductScreen(),
-   PendingOrdersScreen(),
-  DeliverOrderScreen(),
+  final List<Widget> screens = [
+   const DashboardScreen(),
+   const CategoryScreen(),
+   const ProductScreen(),
+  const PendingOrdersScreen(),
+const DeliverOrderScreen(),
   ];
 
   @override
@@ -79,7 +75,7 @@ class _SidebarMenuState extends State<SidebarMenu> {
             ),
           ),
 
-          // ✅ Screen change with click
+          // Screen change with click
           Expanded(
             child: screens[selectedIndex],
           ),
