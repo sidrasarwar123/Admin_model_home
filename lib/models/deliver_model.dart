@@ -16,8 +16,8 @@ class OrderModel {
   });
 
   factory OrderModel.fromMap(String id, Map<String, dynamic> map) {
-    print('🚨 USING OrderModel from deliver_model.dart');
-    print('📄 Firestore Order Data for $id: $map');
+    print(' USING OrderModel from deliver_model.dart');
+    print(' Firestore Order Data for $id: $map');
 
     final List<dynamic> orderItems = map['orderItems'] ?? [];
 
@@ -31,10 +31,10 @@ class OrderModel {
       productName = firstItem['title']?.toString() ?? '';
       qty = int.tryParse(firstItem['qty']?.toString() ?? '0') ?? 0;
     } else {
-      print('⚠️ orderItems is empty or invalid for order: $id');
+      print(' orderItems is empty or invalid for order: $id');
     }
 
-    print('✅ Parsed OrderModel → '
+    print(' Parsed OrderModel → '
         'productName: $productName, qty: $qty, '
         'address: ${map['address']}, '
         'status: ${map['status']}, '
@@ -63,7 +63,7 @@ class OrderModel {
       ],
     };
 
-    print('💾 Converting OrderModel to Map: $data');
+    print(' Converting OrderModel to Map: $data');
     return data;
   }
 }

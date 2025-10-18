@@ -27,16 +27,16 @@ class OrderModel {
     if (orderItems.isNotEmpty && orderItems.first is Map<String, dynamic>) {
       final firstItem = orderItems.first as Map<String, dynamic>;
 
-      print('🛒 First Order Item: $firstItem');
+      print(' First Order Item: $firstItem');
 
       productName = firstItem['title']?.toString() ?? '';
       qty = int.tryParse(firstItem['qty']?.toString() ?? '0') ?? 0;
     } else {
-      print('⚠️ orderItems is empty or invalid for order: $id');
+      print(' orderItems is empty or invalid for order: $id');
     }
 
     // 🔹 Debug print to confirm parsed values
-    print('✅ Parsed OrderModel → productName: $productName, qty: $qty, '
+    print(' Parsed OrderModel → productName: $productName, qty: $qty, '
         'address: ${map['address']}, status: ${map['status']}, total: ${map['total']}');
 
     return OrderModel(
@@ -63,7 +63,7 @@ class OrderModel {
     };
 
     // 🔹 Debug print when converting to Firestore map
-    print('💾 Converting OrderModel to Map: $data');
+    print(' Converting OrderModel to Map: $data');
     return data;
   }
 }
